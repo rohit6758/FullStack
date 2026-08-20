@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simplest To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .task-item {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-top: 10px;
+            border-left: 4px solid #007bff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>My To-Do List</h2>
+    
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter a task................">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <p id="emptyMsg">No tasks available.</p>
+
+    <!-- The list container -->
+    <div id="taskList"></div>
+</div>
+
+<script>
+    // 1. THE PARENT CLASS (Basic properties)
+    class Task {
+        constructor(id, text) {
+            this.id = id;
+            this.text = text;
+        }
+    }
+
+    // 2. THE CHILD CLASS (Inherits properties, adds a method for HTML)
+    class WebTask extends Task {
+        constructor(id, text) {
+            super(id, text);
+        }
+
+        getHTML() {
+            // Notice we give the div and span special IDs based on their number
+            return `
+                <div class="task-item" id="taskBox-${this.id}">
+                    <span id="taskText-${this.id}">${this.text}</span>
+                    <div>
+                        <button style="background: #28a745;" onclick="completeTask(${this.id})">Complete</button>
+                        <button style="background: #dc3545;" onclick="deleteTask(${this.id})">Delete</button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // 3. MAIN LOGIC (No Arrays!)
+    let taskCounter = 0; // Just a simple number to keep track of tasks
+
+    function addTask() {
+        let inputBox = document.getElementById("taskInput");
+        let text = inputBox.value.trim();
+
+        if (text === "") {
+            alert("Please enter a task.");
+            return;
+        }
+
+        // Create the task object
+        let newTask = new WebTask(taskCounter, text);
+
+        // Add the HTML string directly to the bottom of the list using +=
+        document.getElementById("taskList").innerHTML += newTask.getHTML();
+        
+        taskCounter++; // Increase the number for the next task
+        inputBox.value = ""; // Clear the text box
+        
+        checkEmptyMessage(); // Hide the empty message
+    }
+
+    function completeTask(id) {
+        // Just find the specific text span by its ID and strike it out
+        let specificText = document.getElementById("taskText-" + id);
+        specificText.style.textDecoration = "line-through";
+        specificText.style.color = "gray";
+    }
+
+    function deleteTask(id) {
+        // Find the specific task box by its ID and completely remove it from the page
+        let specificBox = document.getElementById("taskBox-" + id);
+        specificBox.remove();
+        
+        checkEmptyMessage(); // Check if we need to show the empty message again
+    }
+
+    // A helper function to show or hide the "No tasks" message
+    function checkEmptyMessage() {
+        let listDiv = document.getElementById("taskList");
+        let emptyMsg = document.getElementById("emptyMsg");
+
+        // If the HTML inside the list is completely empty, show the message
+        if (listDiv.innerHTML.trim() === "") {
+            emptyMsg.style.display = "block";
+        } else {
+            emptyMsg.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
