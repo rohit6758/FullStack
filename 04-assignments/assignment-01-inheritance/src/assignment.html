@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic JS Inheritance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .output-box {
+            background-color: white;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 15px;
+            width: 400px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>JavaScript Inheritance Demo</h2>
+    
+    <!-- This empty box is where we will print our JavaScript output -->
+    <div class="output-box" id="displayArea"></div>
+
+    <script>
+        // 1. THE PARENT CLASS
+        // This holds the basic properties that any vehicle would have.
+        class Vehicle {
+            constructor(brandName) {
+                this.brand = brandName;
+            }
+
+            // A basic method all vehicles share
+            startEngine() {
+                return `Vroom! The ${this.brand} engine has started.`;
+            }
+        }
+
+        // 2. THE CHILD CLASS
+        // The 'extends' keyword means Car gets everything Vehicle has.
+        class Car extends Vehicle {
+            constructor(brandName, modelName) {
+                // 'super()' calls the Parent class (Vehicle) constructor
+                super(brandName); 
+                
+                // This property is specific only to Cars
+                this.model = modelName;
+            }
+
+            // A method specific to the Car class
+            showDetails() {
+                return `I am driving a ${this.brand} ${this.model}.`;
+            }
+        }
+
+        // 3. CREATE AN OBJECT
+        // We create a new Car object. 
+        let myCar = new Car("Toyota", "Supra");
+
+        // 4. DISPLAY ON THE WEBPAGE
+        // We grab the empty div and insert our text using DOM manipulation.
+        let display = document.getElementById("displayArea");
+        
+        display.innerHTML = `
+            <p><b>Method from Child:</b> ${myCar.showDetails()}</p>
+            <p><b>Method from Parent:</b> ${myCar.startEngine()}</p>
+        `;
+    </script>
+
+</body>
+</html>
