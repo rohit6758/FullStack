@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- head is for the head of the html-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Information Portal</title>
+</head>
+<!-- and we give body to the website or doc -->
+<body>
+    <div style="background-color: azure;">
+        <header>
+            <table border="1">
+                <tr>
+                    <td>
+                        <nav>
+                            <a href="https://anits.org/" target="_blank"><br> ANITS Website </a> | 
+                            <a href="https://www.google.com" target="_blank"><br> Google Search </a>
+                        </nav>
+                    </td>
+                </tr>
+            </table>
+        </header>
+        <H1>
+        <!-- THE STRONG WE USED CAUSE ITSTHE MAIN HEADING AND WE WANT IN BOLD-->
+            <strong>ANITS College Information Portal</strong>
+        </H1>
+        <!-- Adding the requested college logo -->
+        <img src=anits.png alt="ANITS Logo" width="200">
+        <!-- br is for new line  -->
+        <br>
+        <hr>
+        <!-- so for the net features not t shwo like iots an doc we are giving the horizntal line  -->
+    </div>
+
+    <div style="background-color: rgb(206, 241, 230);">
+        <section>
+            <h2>
+                <!-- THE B WE USED CAUSE ITSTHE 2ND MAIN HEADING AND WE WANT IN BOLD-->
+                <b>About Our College</b> 
+            </h2>
+            <p>
+                <I>Welcome to ANITS. We focus on <U>excellence</U> in education.</I><br>
+                here we can learn everything about studys and create new things new formulas like 
+                E = mc<SUP>2</SUP>
+                and also formulas Chemical Formula: H<SUB>2</SUB>O
+            </p>
+        </section>
+        <hr>
+    </div>
+
+    <div style="background-color: aliceblue;">
+        <article>
+            <H1>Programs and Facilities</H1>
+            <P>
+                Here are the top programs we offer (Ordered List):
+                <ol>
+                    <li><b>Computer Science Engineering</b></li>
+                    <li><b>Information Technology</b></li>
+                    <li><b>Electronics and Communication</b></li>
+                </ol>
+                And our facilities (Unordered List):
+                <ul>
+                    <li>Library</li>
+                    <li>Advanced Labs</li>
+                    <li>Sports Complex</li>
+                </ul>
+            </P>
+        </article>
+        <hr>
+    </div>
+
+    <div style="background-color: antiquewhite;">
+        <h2>
+            Student Details Table 
+            <!-- table creating for the names of students  -->
+        </h2>
+    </div>
+
+    <div style="background-color: peachpuff;">
+        <p>
+            <table border="2">
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Branch</th>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <td>67</td>
+                    <td>A.Rohit</td>
+                    <td>CSE (AI & ML)</td>
+                    <td>rohit2906a@example.com</td>
+                </tr>
+            </table>
+        </p>
+        <br>
+
+        <h3>CAMPUS</h3>
+        <p>the bwlow pic is our campus</p>
+        <!-- A relevant campus image -->
+        <img src=campus.png alt="Campus Building">
+        <hr>
+    </div>
+
+    <div style="background-color: azure;">
+        <section>
+            <h2>Student Registration Form</h2>
+            <!-- form with new HTML5 inputs -->
+            <form action="#">
+                Name: <input type="text" name="name" value="A.Rohit" required><br><br>
+                Email: <input type="email" name="email" required><br><br>
+                Password: <input type="password" name="password"><br><br>
+                DOB: <input type="date" name="dob"><br><br>
+                Age: <input type="number" name="age"><br><br>
+                Favorite Color: <input type="color" name="color"><br><br>
+                Skill known: <input type="range" name="skill" min="1" max="10"><br><br>
+                
+                Gender: 
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female<br><br>
+
+                Hobbies: 
+                <input type="checkbox" name="hobbies" value="coding"> Coding
+                <input type="checkbox" name="hobbies" value="gaming"> Gaming<br><br>
+
+                Branch: 
+                <select name="branch">
+                    <option value="cse">CSE</option>
+                    <option value="ece">ECE</option>
+                    <option value="mech">MECH</option>
+                </select><br><br>
+
+                Comments:<br>
+                <textarea name="comments" rows="3" cols="30"></textarea><br><br>
+
+                <input type="submit" value="Submit">
+                <input type="reset" value="Clear">
+            </form>
+        </section>
+        <hr>
+    </div>
+
+    <div style="background-color: rgb(206, 241, 230);">
+        <section>
+            <h2>Media Elements</h2>
+            <!-- Audio and Video tags -->
+            <audio controls><source src="audio.mp3" type="audio/mpeg"></audio><br><br>
+            <video controls width="250"><source src="video.mp4" type="video/mp4"></video>
+        </section>
+        <hr>
+        
+        <footer>
+            <p>&copy; 2026 Developed by A.Rohit</p>
+        </footer>
+    </div>
+</body>
+</html>
