@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Demo</title>
+    <style>
+        .box { padding: 20px; border: 2px solid black; margin: 10px; }
+        .active { background-color: lightgreen; color: darkgreen; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Document Object Model (DOM) Demo</h2>
+    <div id="demoBox" class="box" data-status="inactive">
+        This is a normal div element.
+    </div>
+    
+    <button onclick="changeDOM()">Change DOM</button>
+
+    <script>
+        // DOM is basically the tree structure of html elements
+        // JS uses it to target elements and modify them live
+        
+        function changeDOM() {
+            let el = document.getElementById('demoBox');
+            
+            // 1. changing content dynamically
+            el.innerHTML = "<strong>Boom!</strong> Content changed via DOM.";
+            
+            // 2. changing style
+            el.style.fontSize = "20px";
+            el.style.border = "4px dashed blue";
+            
+            // 3. modifying attributes and classes
+            el.setAttribute('data-status', 'active');
+            el.classList.add('active'); // adds the green styling
+        }
+    </script>
+</body>
+</html>
