@@ -1,42 +1,32 @@
-const fs = require('fs');
-const readline = require('readline');
+const express = require('express');
+const app = express();
+const port = 3000;
 
-// setting up console input readers
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+// creating a simple array of 5 students data
+const studentsData = [
+    { id: 1, name: 'Rohit', course: 'B.Tech' },
+    { id: 2, name: 'Manoj', course: 'B.Tech' },
+    { id: 3, name: 'Somya', course: 'B.Tech' },
+    { id: 4, name: 'Charishma', course: 'B.Tech' },
+    { id: 5, name: 'Ravi', course: 'B.Tech' }
+];
+
+// home route
+app.get('/', (req, res) => {
+    res.send('<h1>Welcome to Student Server API</h1><p>Navigate to /students or /about</p>');
 });
 
-// taking inputs from user
-rl.question('Enter a filename (e.g., test.txt): ', (filename) => {
-    rl.question('Enter content to write: ', (content) => {
-        // writing to the file first
-        fs.writeFile(filename, content, (err) => {
-            if (err) throw err;
-            console.log('File created and content written successfully.');
-            
-            // reading it back to check
-            fs.readFile(filename, 'utf8', (err, data) => {
-                if (err) throw err;
-                console.log('\n--- Current File Content ---');
-                console.log(data);
+// students route giving json response
+app.get('/students', (req, res) => {
+    res.json({ success: true, count: studentsData.length, data: studentsData });
+});
 
-                rl.question('\nEnter extra content to append: ', (extra) => {
-                    // appending new data
-                    fs.appendFile(filename, '\n' + extra, (err) => {
-                        if (err) throw err;
-                        console.log('Extra content appended successfully.');
+// about route
+app.get('/about', (req, res) => {
+    res.send('<h3>About This App</h3><p>This is a basic Express server serving student records.</p>');
+});
 
-                        // final read to show complete file
-                        fs.readFile(filename, 'utf8', (err, finalData) => {
-                            if (err) throw err;
-                            console.log('\n--- Final File Content ---');
-                            console.log(finalData);
-                            rl.close(); // done closing it
-                        });
-                    });
-                });
-            });
-        });
-    });
+// running the server
+app.listen(port, () => {
+    console.log(`Server started at http://localhost:${port} ...`);
 });
