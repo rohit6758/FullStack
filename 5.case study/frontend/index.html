@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Management System | Web Hosting, Domain & DNS Architecture</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Top Header Navigation -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <i data-lucide="globe" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-bold text-lg text-white tracking-tight">CloudDeploy SMS</h1>
+            <span class="bg-blue-500/20 text-blue-400 text-xs px-2.5 py-0.5 rounded-full font-medium border border-blue-500/30">Q1 Case Study</span>
+          </div>
+          <p class="text-xs text-slate-400">Web Application Architecture & Cloud Deployment</p>
+        </div>
+      </div>
+
+      <!-- Live Server Status Indicator -->
+      <div class="flex items-center space-x-4">
+        <div class="hidden md:flex items-center space-x-2 text-xs bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span id="healthStatusText" class="text-slate-300">Checking API...</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Hero / Case Study Info Banner -->
+    <div class="bg-gradient-to-r from-slate-800/90 via-indigo-950/40 to-slate-800/90 border border-slate-700/70 rounded-2xl p-6 mb-8 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs uppercase tracking-wider font-semibold text-cyan-400 bg-cyan-950/60 border border-cyan-800 px-2 py-0.5 rounded">Bloom's Level L2: Understand</span>
+            <span class="text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2 py-0.5 rounded">5 Marks</span>
+          </div>
+          <h2 class="text-xl md:text-2xl font-bold text-white">Student Management System: Question 1 Interactive Portal</h2>
+          <p class="text-sm text-slate-300 mt-1 max-w-3xl">
+            Explore <strong>Web Hosting</strong>, <strong>Domain Names</strong>, and <strong>DNS Resolution</strong> in action, coupled with the deployed 
+            <strong>React + Express + MongoDB Atlas</strong> Student Management System.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="layers" class="w-4 h-4 text-cyan-400"></i> Vercel Frontend
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="server" class="w-4 h-4 text-purple-400"></i> Render API
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i> MongoDB Atlas
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="flex border-b border-slate-700 mt-6 gap-2 overflow-x-auto">
+        <button id="tabBtn-dns" onclick="switchTab('dns')" class="tab-btn active px-4 py-2.5 text-sm font-medium rounded-t-lg flex items-center gap-2 border-b-2 border-blue-500 text-white bg-slate-800/60">
+          <i data-lucide="globe-2" class="w-4 h-4 text-blue-400"></i> 1. DNS & Domain Resolver
+        </button>
+        <button id="tabBtn-hosting" onclick="switchTab('hosting')" class="tab-btn px-4 py-2.5 text-sm font-medium rounded-t-lg flex items-center gap-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/30">
+          <i data-lucide="cloud" class="w-4 h-4 text-cyan-400"></i> 2. Web Hosting Architecture
+        </button>
+        <button id="tabBtn-sms" onclick="switchTab('sms')" class="tab-btn px-4 py-2.5 text-sm font-medium rounded-t-lg flex items-center gap-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/30">
+          <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i> 3. Student Management App
+        </button>
+        <button id="tabBtn-theory" onclick="switchTab('theory')" class="tab-btn px-4 py-2.5 text-sm font-medium rounded-t-lg flex items-center gap-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-800/30">
+          <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i> 4. Q1 Theory & Exam Notes
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: DNS & DOMAIN RESOLVER (Directly for Question 1)   -->
+    <!-- ======================================================== -->
+    <section id="tabContent-dns" class="tab-content space-y-8">
+      
+      <!-- Live Domain Query Input -->
+      <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-white flex items-center gap-2 mb-2">
+          <i data-lucide="search" class="w-5 h-5 text-blue-400"></i>
+          Live DNS Lookup & Resolution Pipeline Tester
+        </h3>
+        <p class="text-sm text-slate-400 mb-4">
+          Type any domain name or click a quick sample below. The Express backend will query the real DNS system using Node.js's 
+          <code class="text-blue-300 bg-slate-900 px-1 py-0.5 rounded">dns.promises</code> module and trace the iterative resolution path.
+        </p>
+
+        <!-- Search Input Bar -->
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">https://</span>
+            <input
+              type="text"
+              id="domainInput"
+              value="sms-frontend.vercel.app"
+              placeholder="e.g. sms-frontend.vercel.app, onrender.com, google.com"
+              class="w-full pl-20 pr-4 py-3 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            />
+          </div>
+          <button
+            onclick="performDnsLookup()"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-medium text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+          >
+            <i data-lucide="play" class="w-4 h-4"></i>
+            Trace DNS Resolution
+          </button>
+        </div>
+
+        <!-- Quick Sample Chips -->
+        <div class="flex flex-wrap items-center gap-2 mt-3">
+          <span class="text-xs text-slate-400">Try Case Study Presets:</span>
+          <button onclick="setDomain('sms-frontend.vercel.app')" class="text-xs bg-slate-700/60 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md border border-slate-600/70 transition">
+            Vercel Frontend: sms-frontend.vercel.app
+          </button>
+          <button onclick="setDomain('sms-backend.onrender.com')" class="text-xs bg-slate-700/60 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md border border-slate-600/70 transition">
+            Render Backend: sms-backend.onrender.com
+          </button>
+          <button onclick="setDomain('mongodb.com')" class="text-xs bg-slate-700/60 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md border border-slate-600/70 transition">
+            Database: mongodb.com
+          </button>
+          <button onclick="setDomain('github.com')" class="text-xs bg-slate-700/60 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-md border border-slate-600/70 transition">
+            Git VCS: github.com
+          </button>
+        </div>
+      </div>
+
+      <!-- Domain Anatomy Section -->
+      <div class="bg-slate-800/40 border border-slate-700/80 rounded-xl p-6">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-2">
+          <i data-lucide="git-commit" class="w-4 h-4 text-cyan-400"></i> Domain Name Anatomy Breakdown
+        </h4>
+        <div id="domainAnatomyContainer" class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center">
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400 block mb-1">Protocol</span>
+            <code class="text-cyan-400 font-bold" id="anat-proto">https://</code>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-blue-500/30">
+            <span class="text-xs text-blue-400 block mb-1">Subdomain</span>
+            <code class="text-blue-300 font-bold" id="anat-sub">sms-frontend</code>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-indigo-500/30">
+            <span class="text-xs text-indigo-400 block mb-1">Second-Level (SLD)</span>
+            <code class="text-indigo-300 font-bold" id="anat-sld">vercel</code>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-purple-500/30">
+            <span class="text-xs text-purple-400 block mb-1">Top-Level (TLD)</span>
+            <code class="text-purple-300 font-bold" id="anat-tld">.app</code>
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-emerald-500/30">
+            <span class="text-xs text-emerald-400 block mb-1">Resolved IP</span>
+            <code class="text-emerald-400 font-bold" id="anat-ip">76.76.21.21</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step DNS Resolution Pipeline -->
+      <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-semibold text-white flex items-center gap-2">
+              <i data-lucide="git-branch" class="w-5 h-5 text-indigo-400"></i>
+              Iterative DNS Resolution Pipeline (How Users Reach Your Web App)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Simulated step-by-step traversal from the student's browser to the authoritative edge server</p>
+          </div>
+          <div id="dnsLatencyBadge" class="hidden text-xs px-2.5 py-1 bg-slate-900 rounded-full text-slate-300 border border-slate-700">
+            Total Latency: <span class="text-emerald-400 font-bold" id="dnsLatencyText">0 ms</span>
+          </div>
+        </div>
+
+        <!-- Stepper Cards Container -->
+        <div id="dnsStepsContainer" class="space-y-3">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </div>
+
+      <!-- Live DNS Records Table -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- A and CNAME Records -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-5">
+          <h4 class="text-base font-semibold text-white mb-3 flex items-center gap-2">
+            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> Address Records (A & CNAME)
+          </h4>
+          <div class="space-y-3" id="recordsAContainer">
+            <div class="text-xs text-slate-400 italic">Run a lookup above to fetch live records.</div>
+          </div>
+        </div>
+
+        <!-- TXT & Domain Verification Records -->
+        <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-5">
+          <h4 class="text-base font-semibold text-white mb-3 flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i> Verification & Security Records (TXT / SSL)
+          </h4>
+          <div class="space-y-3" id="recordsTxtContainer">
+            <div class="text-xs text-slate-400 italic">Run a lookup above to fetch live records.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: WEB HOSTING ARCHITECTURE (Directly for Question 1)-->
+    <!-- ======================================================== -->
+    <section id="tabContent-hosting" class="tab-content hidden space-y-8">
+      
+      <!-- Hosting Tiers Comparison Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Vercel Card -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group hover:border-blue-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-4">
+            <i data-lucide="layout" class="w-6 h-6"></i>
+          </div>
+          <div class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2">Frontend Tier</div>
+          <h3 class="text-xl font-bold text-white mb-1">Vercel Edge Hosting</h3>
+          <p class="text-xs text-slate-400 mb-4">Static & Single Page Application (SPA) Delivery</p>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-700/60 pt-4">
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Global Anycast CDN:</strong> React bundles cached across 100+ worldwide Edge PoPs.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Client Routing Rewrites:</strong> Prevents 404s via <code class="text-blue-300">vercel.json</code> SPA rewrites.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Automated SSL/TLS:</strong> Instant HTTPS certificate generation and HTTP-to-HTTPS redirect.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Render Card -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group hover:border-purple-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
+            <i data-lucide="server" class="w-6 h-6"></i>
+          </div>
+          <div class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-2">Backend Tier</div>
+          <h3 class="text-xl font-bold text-white mb-1">Render Web Service</h3>
+          <p class="text-xs text-slate-400 mb-4">Platform-as-a-Service (PaaS) API Runtime</p>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-700/60 pt-4">
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Continuous Process:</strong> Long-lived Express.js server on internal Linux containers.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Dynamic Port Binding:</strong> Listens on dynamic <code class="text-purple-300">$PORT</code> with built-in reverse proxy.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Persistent Sockets:</strong> Keeps long-lived TCP connection pool to MongoDB Atlas.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- MongoDB Atlas Card -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 relative overflow-hidden group hover:border-emerald-500/50 transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
+            <i data-lucide="database" class="w-6 h-6"></i>
+          </div>
+          <div class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">Data Tier</div>
+          <h3 class="text-xl font-bold text-white mb-1">MongoDB Atlas</h3>
+          <p class="text-xs text-slate-400 mb-4">Database-as-a-Service (DBaaS)</p>
+          <ul class="text-xs text-slate-300 space-y-2 border-t border-slate-700/60 pt-4">
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>3-Node Replica Sets:</strong> Automated failover, data redundancy, and automated backups.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>DNS Seedlist (SRV):</strong> Compact URI discovery for replica set members.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <span><strong>Network Firewalls:</strong> IP whitelist security (<code class="text-emerald-300">0.0.0.0/0</code> for cloud APIs).</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Deployment Configuration Artifacts -->
+      <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+          <i data-lucide="file-code" class="w-5 h-5 text-amber-400"></i>
+          Production Hosting Configurations for Question 1
+        </h3>
+        <p class="text-sm text-slate-400 mb-6">These are the actual configuration files required when hosting this full-stack application on Vercel and Render.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- vercel.json snippet -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <div class="flex items-center justify-between mb-3 text-xs text-slate-400 border-b border-slate-800 pb-2">
+              <span class="font-mono text-cyan-400 font-semibold">vercel.json (Frontend Hosting)</span>
+              <span>Root Directory</span>
+            </div>
+            <pre class="text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code>{
+  "version": 2,
+  "name": "student-management-frontend",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+          </div>
+
+          <!-- DNS Zone Records snippet -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <div class="flex items-center justify-between mb-3 text-xs text-slate-400 border-b border-slate-800 pb-2">
+              <span class="font-mono text-purple-400 font-semibold">DNS Zone File (Custom Domain Mapping)</span>
+              <span>Domain Registrar / Cloudflare</span>
+            </div>
+            <pre class="text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code>; Apex domain pointing to Vercel IP (A Record)
+@         3600  IN  A      76.76.21.21
+
+; Frontend Subdomain pointing to Vercel Edge (CNAME)
+sms       3600  IN  CNAME  cname.vercel-dns.com.
+
+; Backend API Subdomain pointing to Render (CNAME)
+api.sms   3600  IN  CNAME  sms-backend.onrender.com.
+
+; SSL Certificate Verification (TXT Record)
+_vercel   3600  IN  TXT    "vc-domain-verify=..."</code></pre>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: STUDENT MANAGEMENT SYSTEM (Case Study Core)       -->
+    <!-- ======================================================== -->
+    <section id="tabContent-sms" class="tab-content hidden space-y-8">
+      
+      <!-- Top Action Bar & Department Counts -->
+      <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i data-lucide="graduation-cap" class="w-6 h-6 text-emerald-400"></i>
+              Registered Students Directory
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">Full CRUD operations powered by the Express REST API backend</p>
+          </div>
+          <button
+            onclick="openAddModal()"
+            class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs rounded-xl flex items-center gap-2 shadow-lg shadow-emerald-600/30 transition cursor-pointer self-start md:self-auto"
+          >
+            <i data-lucide="user-plus" class="w-4 h-4"></i> Add New Student
+          </button>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="smsMetricsContainer">
+          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/60">
+            <span class="text-xs text-slate-400 block">Total Students</span>
+            <span class="text-2xl font-bold text-white" id="metricTotal">0</span>
+          </div>
+          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/60">
+            <span class="text-xs text-slate-400 block">CSE & IT</span>
+            <span class="text-2xl font-bold text-blue-400" id="metricTech">0</span>
+          </div>
+          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/60">
+            <span class="text-xs text-slate-400 block">Average CGPA</span>
+            <span class="text-2xl font-bold text-emerald-400" id="metricAvgCgpa">0.0</span>
+          </div>
+          <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/60">
+            <span class="text-xs text-slate-400 block">Data Source</span>
+            <span class="text-xs font-semibold text-cyan-400 mt-1.5 block" id="metricSource">In-Memory</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Records Table -->
+      <div class="bg-slate-800/60 border border-slate-700 rounded-xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-900/90 text-slate-400 text-xs uppercase tracking-wider border-b border-slate-700">
+              <tr>
+                <th class="px-6 py-4">Roll Number</th>
+                <th class="px-6 py-4">Student Name</th>
+                <th class="px-6 py-4">Department</th>
+                <th class="px-6 py-4">Email</th>
+                <th class="px-6 py-4">Semester</th>
+                <th class="px-6 py-4">CGPA</th>
+                <th class="px-6 py-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody" class="divide-y divide-slate-700/60 text-slate-300">
+              <!-- Populated dynamically via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: Q1 THEORY & EXAM NOTES (Ready for submission)     -->
+    <!-- ======================================================== -->
+    <section id="tabContent-theory" class="tab-content hidden space-y-6">
+      <div class="bg-slate-800/70 border border-slate-700 rounded-2xl p-6 md:p-8 space-y-6">
+        <div>
+          <div class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2">Question 1 Official Solution</div>
+          <h2 class="text-2xl font-bold text-white">Concepts of Web Hosting, Domain Names, and the Role of DNS</h2>
+          <p class="text-sm text-slate-400">Course Outcome: CO1 / CO5 | Bloom's Level: L2 (Understand) | 5 Marks</p>
+        </div>
+
+        <div class="space-y-4 text-sm text-slate-300 leading-relaxed border-t border-slate-700 pt-6">
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">1</span>
+            Concept of Web Hosting
+          </h3>
+          <p>
+            <strong>Web hosting</strong> is an infrastructure service that allocates physical or virtual server computing resources (CPU, RAM, persistent storage, and high-speed network bandwidth) connected to the internet 24/7/365. It runs the web server daemons, runtimes, and databases required to serve web applications to global users.
+          </p>
+          <p>
+            In our <strong>Student Management System</strong>, hosting is decoupled into specialized tiers:
+          </p>
+          <ul class="list-disc pl-6 space-y-1 text-slate-300">
+            <li><strong>Frontend Web Hosting (Vercel):</strong> Distributes compiled static React Single Page Application (SPA) files across a Global Edge Content Delivery Network (CDN) for low-latency delivery.</li>
+            <li><strong>Backend API Hosting (Render):</strong> Runs the dynamic Node.js/Express.js service inside a managed Linux container with persistent socket listeners and automatic routing.</li>
+            <li><strong>Database Hosting (MongoDB Atlas):</strong> Provides managed cloud Database-as-a-Service (DBaaS) with 3-node replica sets for automated failover and data redundancy.</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-white flex items-center gap-2 pt-4">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">2</span>
+            Concept of Domain Names
+          </h3>
+          <p>
+            A <strong>Domain Name</strong> is a human-readable alphanumeric identifier (such as <code class="text-blue-300">sms-frontend.vercel.app</code>) that abstracts machine-level numerical IP addresses (such as <code class="text-emerald-300">76.76.21.21</code>). Domain names follow a structured hierarchical tree:
+          </p>
+          <ul class="list-disc pl-6 space-y-1 text-slate-300">
+            <li><strong>Top-Level Domain (TLD):</strong> The highest level in the DNS tree (e.g., <code class="text-purple-300">.app</code>, <code class="text-purple-300">.com</code>, <code class="text-purple-300">.edu</code>).</li>
+            <li><strong>Second-Level Domain (SLD):</strong> The unique project/organization brand (e.g., <code class="text-indigo-300">vercel</code> in <code class="text-indigo-300">vercel.app</code>).</li>
+            <li><strong>Subdomain:</strong> Designates a specific application or service (e.g., <code class="text-blue-300">sms-frontend</code>).</li>
+          </ul>
+
+          <h3 class="text-lg font-bold text-white flex items-center gap-2 pt-4">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs">3</span>
+            Role of DNS in Making a Deployed Application Accessible
+          </h3>
+          <p>
+            The <strong>Domain Name System (DNS)</strong> functions as the distributed "phonebook of the Internet." When a user inputs a URL into their browser, DNS translates the human-friendly domain into a routable IP address through an iterative resolution chain:
+          </p>
+          <ol class="list-decimal pl-6 space-y-2 text-slate-300">
+            <li><strong>Cache Inspection:</strong> Browser checks internal memory cache and OS resolver cache for the domain.</li>
+            <li><strong>Recursive Resolver:</strong> If not cached, the ISP's Recursive Resolver receives the query.</li>
+            <li><strong>Root Nameserver (.):</strong> Directs the resolver to the responsible TLD nameserver.</li>
+            <li><strong>TLD Nameserver (.app):</strong> Directs the resolver to the Authoritative Nameserver (e.g. Vercel DNS).</li>
+            <li><strong>Authoritative Nameserver:</strong> Delivers the definitive <strong>A Record</strong> (IP address) or <strong>CNAME Record</strong> with a Time-To-Live (TTL).</li>
+            <li><strong>Connection Handshake:</strong> The browser initiates a TCP handshake on port 443, completes TLS encryption, and retrieves the React web application bundle.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Add Student Modal -->
+  <div id="addStudentModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg p-6 shadow-2xl relative">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="user-plus" class="w-5 h-5 text-emerald-400"></i> Add Student Record
+        </h3>
+        <button onclick="closeAddModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="addStudentForm" onsubmit="handleAddStudent(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Roll Number</label>
+          <input type="text" id="addRollNo" required placeholder="e.g. A24126552072" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Full Name</label>
+          <input type="text" id="addName" required placeholder="e.g. Divya Prakash" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Department</label>
+            <select id="addDepartment" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+              <option value="CSE">CSE</option>
+              <option value="IT">IT</option>
+              <option value="ECE">ECE</option>
+              <option value="EEE">EEE</option>
+              <option value="MECH">MECH</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="AIDS">AIDS</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Semester</label>
+            <input type="number" id="addSemester" min="1" max="8" value="4" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Email</label>
+            <input type="email" id="addEmail" required placeholder="divya@college.edu" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">CGPA</label>
+            <input type="number" step="0.01" min="0" max="10" id="addCgpa" value="8.50" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-slate-700">
+          <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-medium text-slate-200">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-medium text-white shadow-lg shadow-emerald-600/30">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Department Modal -->
+  <div id="editDepartmentModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-sm p-6 shadow-2xl relative">
+      <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+        <i data-lucide="edit-3" class="w-4 h-4 text-blue-400"></i> Update Student Department
+      </h3>
+      <p class="text-xs text-slate-400 mb-4" id="editStudentLabel">Update department for student</p>
+      
+      <form id="editDepartmentForm" onsubmit="handleSaveDepartment(event)">
+        <input type="hidden" id="editStudentId" />
+        <div class="mb-4">
+          <label class="block text-xs font-medium text-slate-300 mb-1">Select New Department</label>
+          <select id="editDepartmentSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="CSE">CSE</option>
+            <option value="IT">IT</option>
+            <option value="ECE">ECE</option>
+            <option value="EEE">EEE</option>
+            <option value="MECH">MECH</option>
+            <option value="CIVIL">CIVIL</option>
+            <option value="AIDS">AIDS</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-3">
+          <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-medium text-slate-200">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-medium text-white shadow-lg shadow-blue-600/30">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-slate-700 shadow-2xl rounded-xl px-4 py-3 flex items-center gap-3 text-sm text-white transform transition-all duration-300 translate-y-20 opacity-0 pointer-events-none z-50">
+    <i id="toastIcon" data-lucide="info" class="w-5 h-5 text-blue-400"></i>
+    <span id="toastMessage">Action completed</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

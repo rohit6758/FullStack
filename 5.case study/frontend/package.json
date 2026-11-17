@@ -1,0 +1,16 @@
+{
+  "name": "sms-frontend-vercel",
+  "version": "1.0.0",
+  "description": "Student Management System Frontend deployed on Vercel Edge",
+  "scripts": {
+    "start": "npx serve . -p 3000"
+  },
+  "keywords": [
+    "vercel",
+    "frontend",
+    "dns-visualizer",
+    "student-management"
+  ],
+  "author": "Student",
+  "license": "ISC"
+}

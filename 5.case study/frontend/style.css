@@ -1,0 +1,45 @@
+/* Custom Styles for Student Management & DNS Platform */
+
+@layer utilities {
+  .backdrop-blur {
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Tab active state */
+.tab-btn.active {
+  border-bottom-color: #3b82f6;
+  color: #ffffff;
+  background-color: rgba(30, 41, 59, 0.7);
+}
+
+/* Stepper Connector Lines */
+.dns-step-card {
+  position: relative;
+  transition: all 0.25s ease-in-out;
+}
+
+.dns-step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Badge glows */
+.badge-cse { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-it  { background-color: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-ece { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-eee { background-color: rgba(234, 179, 8, 0.15);  color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+.badge-mech{ background-color: rgba(239, 68, 68, 0.15);  color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.badge-civil{ background-color: rgba(100, 116, 139, 0.2); color: #cbd5e1; border: 1px solid rgba(100, 116, 139, 0.3); }
+.badge-aids{ background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+/* Animation pulse */
+@keyframes stepPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.step-active {
+  border-color: #3b82f6;
+  background-color: rgba(30, 58, 138, 0.25);
+}

@@ -1,0 +1,20 @@
+{
+  "name": "case-study-root",
+  "version": "1.0.0",
+  "description": "Student Management System - Separated Frontend & Backend Monorepo",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "cd backend && node server.js",
+    "frontend": "npx serve frontend -p 3000",
+    "install:all": "cd backend && npm install"
+  },
+  "keywords": [
+    "student-management",
+    "vercel",
+    "render",
+    "mongodb-atlas",
+    "dns"
+  ],
+  "author": "Student",
+  "license": "ISC"
+}

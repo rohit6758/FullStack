@@ -1,0 +1,28 @@
+{
+  "name": "student-management-dns-casestudy",
+  "version": "1.0.0",
+  "description": "Student Management System with Web Hosting, Domain and DNS Resolution Platform for Case Study Q1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "dns",
+    "web-hosting",
+    "student-management",
+    "case-study",
+    "express",
+    "mongodb-atlas",
+    "vercel",
+    "render"
+  ],
+  "author": "Student",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.2"
+  }
+}
